@@ -53,7 +53,7 @@ function BitcoinRates() {
 
   // Render
   return (
-    <div>
+    <div className="BitcoinRates">
       <h3>Bitcoin Exchange Rate</h3>
       <label>
         Choose currency:

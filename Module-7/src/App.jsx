@@ -1,20 +1,25 @@
-import { useState } from 'react'
+import React from 'react';
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Homepage from './components/Homepage';
+import LoginPage from './components/LoginPage';
 import BitcoinRates from './components/BitcoinRates'
-import Emoji from './components/Emoji'
-import { EmojiProvider } from './context/EmojiContext'
-
+import { EmojiProvider } from './context/EmojiContext';
 
 function App() {
-
   return (
-    <EmojiProvider> {/* Wrapping components with EmojiProvider */}
-      <div className="App">
-        <Emoji /> {/* Emoji component to change and display the current mood */}
-        <BitcoinRates /> {/* BitcoinRates component */}
-      </div>
-    </EmojiProvider>
+    <BrowserRouter>
+      <EmojiProvider>
+        <Navbar /> 
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/bitcoin-rates" element={<BitcoinRates />} />
+        </Routes>
+      </EmojiProvider>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
