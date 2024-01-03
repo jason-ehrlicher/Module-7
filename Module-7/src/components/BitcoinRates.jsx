@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useBitcoinPrice from "../hooks/useBitcoinPrice";
 import { useEmojiContext } from "../context/EmojiContext";
+import { Card, CardContent, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 // List of supported currencies
 const currencies = ["USD", "AUD", "NZD", "GBP", "EUR", "SGD"];
@@ -45,45 +46,78 @@ function BitcoinRates() {
   // }, [currency]); // Dependency array - this effect runs when 'currency' changes
 
   // Mapping currencies to dropdown options
+  // const options = currencies.map((curr) => (
+  //   <option value={curr} key={curr}>
+  //     {curr}
+  //   </option>
+  // ));
+
+  // Update to use mui
   const options = currencies.map((curr) => (
-    <option value={curr} key={curr}>
-      {curr}
-    </option>
+    <MenuItem value={curr} key={curr}>{curr}</MenuItem>
   ));
 
   // Render
-  return (
-    <div className="BitcoinRates">
-      <h3>Bitcoin Exchange Rate</h3>
-      <label>
-        Choose currency:
-        <select
+//   return (
+//     <div className="BitcoinRates">
+//       <h3>Bitcoin Exchange Rate</h3>
+//       <label>
+//         Choose currency:
+//         <select
+//           value={currency}
+//           onChange={(e) => setCurrency(e.target.value)} // Update the state when a new currency is selected
+//         >
+//           {options}
+//         </select>
+//       </label>
+//       <div>
+//         <br />
+//         {isLoading ? (
+//           <p>Loading...</p> // Display loading state
+//         ) : isError ? (
+//           <p>Error fetching data.</p> // Display error state
+//         ) : (
+//           <strong>
+//             Current Bitcoin Price:{" "}
+//             {bitcoinPrice && `${bitcoinPrice} ${currency}`}
+//           </strong>
+//         )}
+//         {/* Displaying the fetched Bitcoin price */}
+//       </div>
+//       <div>
+//                 <strong>Current Mood: {emoji}</strong> {/* Displaying the current emoji */}
+//             </div>
+
+//     </div>
+//   );
+// }
+
+// Update to use mui
+return (
+  <Card>
+    <CardContent>
+      <Typography variant="h5" component="div" sx={{ marginBottom: 5 }}>
+        Bitcoin Exchange Rate 
+      </Typography>
+      <FormControl fullWidth>
+        <InputLabel>Choose currency:</InputLabel>
+        <Select
           value={currency}
-          onChange={(e) => setCurrency(e.target.value)} // Update the state when a new currency is selected
+          onChange={(e) => setCurrency(e.target.value)}
+          label="Choose currency"
         >
           {options}
-        </select>
-      </label>
-      <div>
-        <br />
-        {isLoading ? (
-          <p>Loading...</p> // Display loading state
-        ) : isError ? (
-          <p>Error fetching data.</p> // Display error state
-        ) : (
-          <strong>
-            Current Bitcoin Price:{" "}
-            {bitcoinPrice && `${bitcoinPrice} ${currency}`}
-          </strong>
-        )}
-        {/* Displaying the fetched Bitcoin price */}
-      </div>
-      <div>
-                <strong>Current Mood: {emoji}</strong> {/* Displaying the current emoji */}
-            </div>
-
-    </div>
-  );
+        </Select>
+      </FormControl>
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        {isLoading ? "Loading..." : isError ? "Error fetching data." : `Current Bitcoin Price: ${bitcoinPrice} ${currency}`}
+      </Typography>
+      <Typography variant="body1">
+        Current Mood: {emoji}
+      </Typography>
+    </CardContent>
+  </Card>
+);
 }
 
 export default BitcoinRates;
