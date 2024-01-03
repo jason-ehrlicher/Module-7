@@ -1,10 +1,9 @@
 import { UserProvider } from "../context/UserContext";
-import LoginForm from "./LoginForm";
+import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
   return (
     <div className="LoginPage">
-      <h3>Login</h3>
       <UserProvider>
       <LoginForm />
       </UserProvider>

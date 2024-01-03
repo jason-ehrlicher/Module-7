@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css'
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
+import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Homepage from './components/Homepage';
-import LoginPage from './components/LoginPage';
+import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
 import BitcoinRates from './components/BitcoinRates'
 import { EmojiProvider } from './context/EmojiContext';
 
+
 function App() {
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline /> 
     <BrowserRouter>
       <EmojiProvider>
         <Navbar /> 
@@ -19,6 +25,7 @@ function App() {
         </Routes>
       </EmojiProvider>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
